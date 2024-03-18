@@ -14,13 +14,12 @@ router.post("/register", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashpassword = await bcrypt.hash(password, salt);
 
-
-  const record = await User.findOne({ email: email});
-  if(record){
+  const record = await User.findOne({ email: email });
+  if (record) {
     return res.status(400).json({
       message: "Email already exists",
     });
-  }else{
+  } else {
     const user = new User({
       email: email,
       password: hashpassword,
@@ -35,6 +34,21 @@ router.post("/register", async (req, res) => {
 
   const result = await user.save();
 
+  //jwt token
+  const { _id } = await result.toJSON();
+  const token = jwt.sign({ _id: _id }, "secret");
+
+  res.cookie("jwt", token, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+
+
+  res.json({
+    message: "Success"
+  });
+
+  
   res.json({
     user: result,
   });
