@@ -20,8 +20,10 @@ app.use(cookieParse());
 
 app.use(express.json());
 app.use("/api", routes);
+const url = 'mongodb://root:root@ac-hwlrx0j-shard-00-00.xmofpjb.mongodb.net:27017,ac-hwlrx0j-shard-00-01.xmofpjb.mongodb.net:27017,ac-hwlrx0j-shard-00-02.xmofpjb.mongodb.net:27017/?ssl=true&replicaSet=atlas-xjtc2b-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0/cartapp'
 mongoose
-  .connect("mongodb+srv://arunsinghpundir325:root@cluster-cartapp.yneymb8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-cartapp/cartapp", {
+  // .connect("mongodb+srv://arunsinghpundir325:root@cluster-cartapp.yneymb8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-cartapp/cartapp", {
+  .connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
