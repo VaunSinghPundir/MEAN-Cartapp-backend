@@ -30,7 +30,7 @@ mongoose
   .then(() => {
     console.log("connected to db");
     app.listen(5000, () => {
-      console.log("app is listening on port 5000");
+      console.log("app is active");
     });
   });
 
